@@ -2,7 +2,7 @@ let tableData = {
     columns: ['date', 'benzene','toluene','ethylbenzene','xylene','1-2-4-TMB','naphthalene','1-3-5-TMB','methylnap','ethylbenzene1','xylene1'],
     rows: [
       {
-        'date': 'Generic',
+        'date': 'Generic Criteria',
         'carbon': '',
         'methyl': '',
         'gasoil': '',

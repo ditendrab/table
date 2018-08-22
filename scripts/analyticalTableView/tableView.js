@@ -24,11 +24,22 @@ class TableView extends Component {
 
     const topBorder = {
               borderTop:' 1px solid #888',
-              borderRight: '1px solid #888'
+      borderRight: '1px solid #888',
+      padding:'3px 5px',
+      textAlign:'right'
           }
 
     const noBorder = {
-              borderRight: '1px solid #888'
+      borderRight: '1px solid #888',
+      padding:'3px 5px',
+      textAlign:'right'
+    }
+
+    const tableStyle = {
+      borderBottom: '1px solid #888',
+      borderTop: '1px solid #888',
+      fontSize: '14px',
+      fontSize: 'sans-serif',
           }
  
     let tableHeaders=(
@@ -49,13 +60,17 @@ class TableView extends Component {
     let tableBody =( dataRows.map(function(row) {
         return (
             <tr key={row.key}>
-                {row.groupHeading ? (dataColumns.map(function(column) {
-                    return <td style={topBorder}><b>{row[column]}</b></td>;})): dataColumns.map(function(column) {
-                    return <td style={noBorder}>{row[column]}</td>;}) }
+                {
+                  row.groupHeading ? (dataColumns.map(function(column) {
+                      return <td style={topBorder}><b>{row[column]}</b></td>;
+                    })) : dataColumns.map(function(column) {
+                      return <td style={noBorder}><b>{row[column]}</b></td>;
+                     })
+                    }
             </tr>); 
         }));
 
-        return (<table className="table" style={{border:'1px solid #888', fontSize: '14px', fontStyle: 'normal'}} width="100%">
+        return (<table className="table" style={tableStyle} width="100%">
         {tableHeaders}
         {tableBody}
         </table>)
