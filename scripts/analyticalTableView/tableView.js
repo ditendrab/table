@@ -9,19 +9,50 @@ class TableView extends Component {
   table=()=>{
     const dataColumns=this.props.data.columns;
     const dataRows=this.props.data.rows;
-    const x = 900/ dataColumns.length;
+    const x = 80;
     
     const headerStyle = {
-              transformOrigin:'50% 50%',
-              transform: 'rotate(290deg)',
-              whiteSpace:'nowrap'
+     transform: 'skew(-30deg,0deg)',
+    overflow: 'hidden',
+    borderRight: '1px solid #888',
+    position: 'relative',
+    top: '0px',
+    left: '40px',
+    height: '100%',
+    fontSize:'14px',
+    fontWeight:'normal'
+  }
+  
+   const headerText = {
+    transform: 'skew(45deg,0deg) rotate(315deg)',
+    position: 'absolute',
+    bottom: '20px',
+    left: '20px',
+    width: '80px',
+    margin:'10px 0px'
           }
     const firstHeaderStyle = {
-              transformOrigin:'50% 50%',
-              transform: 'rotate(290deg)',
-              maxWidth: '100px'
+     transform: 'skew(-30deg,0deg)',
+    overflow: 'hidden',
+    borderRight: '1px solid #888',
+    position: 'relative',
+    top: '0px',
+    left: '42px',
+    height: '100%',
+    fontSize:'14px',
+    fontWeight:'normal'
           }   
 
+   const thStyle = {
+    height: '80px',
+    width: '80px',
+    position: 'relative',
+    verticalAlign: 'bottom',
+    padding: '0px',
+   }
+   const boldStyle = {
+     fontWeight:'bold'
+   }
     const topBorder = {
               borderTop:' 1px solid #888',
       borderRight: '1px solid #888',
@@ -37,9 +68,8 @@ class TableView extends Component {
 
     const tableStyle = {
       borderBottom: '1px solid #888',
-      borderTop: '1px solid #888',
       fontSize: '14px',
-      fontSize: 'sans-serif',
+      fontStyle: 'arial',
           }
  
     let tableHeaders=(
@@ -47,10 +77,9 @@ class TableView extends Component {
           <tr style={{height:'140px'}}>
              {
                dataColumns.map(function(column, index) {
-                return <th style={{width:x+'px', maxWidth:x+'px',  textAlign:'center', borderRight:'1px solid #888'}}>
+                return <th style={thStyle}>
                   <div style={index == 0? firstHeaderStyle: headerStyle}>
-                    {/*<span style={{borderBottom: '1px solid #ccc', padding:'5px 2px',  height: '140px', whiteSpace:'nowrap'}}>{column}</span>*/}
-                    <span >{column}</span>
+                    <span style={index != 0?headerText:{}} >{index != 0?column:'' }</span>
                   </div>
                   </th>; })
               }
@@ -61,16 +90,19 @@ class TableView extends Component {
         return (
             <tr key={row.key}>
                 {
-                  row.groupHeading ? (dataColumns.map(function(column) {
-                      return <td style={topBorder}><b>{row[column]}</b></td>;
-                    })) : dataColumns.map(function(column) {
-                      return <td style={noBorder}><b>{row[column]}</b></td>;
+                  row.groupHeading ? (dataColumns.map(function(column, index) {
+                      if(index == 0)
+                      return <td style={{...topBorder, ...boldStyle}}>{row[column]}</td>;
+                      else
+                      return <td style={topBorder}>{row[column]}</td>;
+                    })) : dataColumns.map(function(column, index) {
+                      return <td style={noBorder}>{row[column]}</td>;
                      })
                     }
             </tr>); 
         }));
 
-        return (<table className="table" style={tableStyle} width="100%">
+        return (<table className="table" style={tableStyle}>
         {tableHeaders}
         {tableBody}
         </table>)
