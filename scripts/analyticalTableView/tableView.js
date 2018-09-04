@@ -71,7 +71,7 @@ class TableView extends Component {
       fontSize: '14px',
       fontStyle: 'arial',
           }
- 
+       
     let tableHeaders=(
        <thead>
           <tr style={{height:'140px'}}>
@@ -79,24 +79,29 @@ class TableView extends Component {
                dataColumns.map(function(column, index) {
                 return <th style={thStyle}>
                   <div style={index == 0? firstHeaderStyle: headerStyle}>
-                    <span style={index != 0?headerText:{}} >{index != 0?column:'' }</span>
+                    <span style={index != 0?headerText:{}} >{index != 0?column.title:'' }</span>
                   </div>
                   </th>; })
               }
           </tr>
        </thead>);
 
-    let tableBody =( dataRows.map(function(row) {
+    let tableBody =( dataRows.map(function(row, rowIndex) {
         return (
-            <tr key={row.key}>
+            <tr key={rowIndex}>
                 {
                   row.groupHeading ? (dataColumns.map(function(column, index) {
                       if(index == 0)
-                      return <td style={{...topBorder, ...boldStyle}}>{row[column]}</td>;
+                      return <td style={{...topBorder, ...boldStyle}}>{row.date}</td>;
                       else
-                      return <td style={topBorder}>{row[column]}</td>;
+                      return <td style={topBorder}>{row[column.id]}</td>;
                     })) : dataColumns.map(function(column, index) {
-                      return <td style={noBorder}>{row[column]}</td>;
+
+                      if(index == 0)
+                      return <td   style={noBorder}>{row.date}</td>;
+                      else
+                      return <td style={noBorder}>{row[column.id]}</td>;
+
                      })
                     }
             </tr>); 
